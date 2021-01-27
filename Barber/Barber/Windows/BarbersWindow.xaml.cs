@@ -28,6 +28,7 @@ namespace Barber
         {
             DataBaseConnector.DataGridConnect(BarbersGrid, "SELECT * FROM Barbers");
             BarbersGrid.Columns[0].IsReadOnly = true;
+            CountTextBox.Text = DataBaseConnector.Count().ToString();
         }
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)

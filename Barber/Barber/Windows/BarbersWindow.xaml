@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="BarbersWindow" Height="450" Width="800" Loaded="BarbersWindow_OnLoaded">
     <Grid>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -14,6 +15,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="10"></RowDefinition>
@@ -34,7 +36,10 @@
             <Button Name="CloseButton" Content="Close" Grid.Column="3" Click="CloseButton_OnClick"></Button>
 
         </Grid>
-
-        <DataGrid Name="BarbersGrid" Grid.Column="1" Grid.Row="1"></DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <TextBox IsReadOnly="True" Text="Count:" FontSize="18"></TextBox>
+            <TextBox Name="CountTextBox" FontSize="18"></TextBox>
+        </StackPanel>
+        <DataGrid Name="BarbersGrid" Grid.Column="1" Grid.Row="2"></DataGrid>
     </Grid>
 </Window>

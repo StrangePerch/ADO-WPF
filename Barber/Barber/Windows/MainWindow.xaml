@@ -29,6 +29,7 @@
         <Button Name="GendersButton" Grid.Column="1" Grid.Row="1" Content="Genders" Click="GendersButton_OnClick_OnClick"/>
         <Button Name="BarbersButton" Grid.Column="3" Grid.Row="1" Content="Barbers" Click ="BarbersButton_OnClick"/>
         <Button Name="ClientsButton" Grid.Column="1" Grid.Row="3" Content="Clients" Click ="ClientsButton_OnClick"/>
+        <Button Name="AddClientButton" Grid.Column="3" Grid.Row="3" Content="AddClient" Click ="AddClientButton_OnClick"/>
 
     </Grid>
 </Window>

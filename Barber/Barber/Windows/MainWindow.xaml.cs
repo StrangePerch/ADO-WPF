@@ -53,5 +53,11 @@ namespace Barber
             ClientsWindow window = new ClientsWindow();
             window.ShowDialog();
         }
+
+        private void AddClientButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddNewClient window = new AddNewClient();
+            window.ShowDialog();
+        }
     }
 }

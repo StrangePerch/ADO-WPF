@@ -65,5 +65,16 @@ namespace Barber
                 throw;
             }
         }
+
+        public static void NonQueryCommand(string str_command)
+        {
+            SqlCommand command = new SqlCommand(str_command, _connection);
+            command.ExecuteNonQuery();
+        }
+
+        public static int Count()
+        {
+            return dataTable.Rows.Count;
+        }
     }
 }
