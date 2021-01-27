@@ -28,12 +28,12 @@ namespace Barber
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            Main.Start();
+            DataBaseConnector.Connect();
         }
 
         private void MainWindow_OnClosed(object sender, EventArgs e)
         {
-            Main.Finish();
+            DataBaseConnector.Close();
         }
 
         private void GendersButton_OnClick_OnClick(object sender, RoutedEventArgs e)
@@ -57,6 +57,12 @@ namespace Barber
         private void AddClientButton_OnClick(object sender, RoutedEventArgs e)
         {
             AddNewClient window = new AddNewClient();
+            window.ShowDialog();
+        }
+
+        private void ShowClient_OnClick(object sender, RoutedEventArgs e)
+        {
+            ClientForm window = new ClientForm();
             window.ShowDialog();
         }
     }

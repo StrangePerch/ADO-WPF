@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\ClientForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ClientsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,13 +106,15 @@
       <DependentUpon>BarbersWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Code\DataBaseConnector.cs" />
+    <Compile Include="Windows\ClientForm.xaml.cs">
+      <DependentUpon>ClientForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ClientsWindow.xaml.cs">
       <DependentUpon>ClientsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\GendersWindow.xaml.cs">
       <DependentUpon>GendersWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Code\Main.cs" />
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

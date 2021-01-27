@@ -45,14 +45,29 @@ namespace Barber
 
         public static void DataGridConnect(DataGrid grid, string str_command)
         {
-            SqlCommand command = new SqlCommand(str_command) {Connection = _connection};
+            SqlCommand command = new SqlCommand(str_command, _connection);
             adapter = new SqlDataAdapter(command);
             dataTable = new DataTable();
             adapter.Fill(dataTable);
             grid.ItemsSource = dataTable.DefaultView;
             builder = new SqlCommandBuilder(adapter);
         }
-        
+
+        public static DataTable GetDataTable(string str_command)
+        {
+            SqlCommand command = new SqlCommand(str_command, _connection);
+            adapter = new SqlDataAdapter(command);
+            dataTable = new DataTable();
+            adapter.Fill(dataTable);
+            return dataTable;
+        }
+
+        public static SqlDataReader GetReader(string str_command)
+        {
+            SqlCommand command = new SqlCommand(str_command, _connection);
+            return command.ExecuteReader();
+        }
+
         public static void Save()
         {
             try
