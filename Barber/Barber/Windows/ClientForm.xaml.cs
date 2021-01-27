@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Barber.Windows
     public partial class ClientForm : Window
     {
         private List<Client> Clients;
+        private List<string> Genders;
         private int index = 0;
 
         public ClientForm()
@@ -57,7 +59,7 @@ namespace Barber.Windows
             Surname.Text = Clients[index].Surname;
             Email.Text = Clients[index].Email;
             Phone.Text = Clients[index].Phone;
-            Gender.Text = Clients[index].GenderId.ToString();
+            Gender.Text = Genders[index];
 
             PrevButton.IsEnabled = index != 0;
             NextButton.IsEnabled = index != Clients.Count - 1;
@@ -96,7 +98,14 @@ namespace Barber.Windows
                 Close();
             }
             // Отображаем на форме данные о размере коллекции Clients
-            
+
+            DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
+            Genders = new List<string>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Genders.Add(row.ItemArray[1].ToString());
+            }
+
             ShowClient();
         }
     }
