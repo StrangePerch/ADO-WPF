@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,6 +24,13 @@ namespace Barber.Windows
         public AddNewClient()
         {
             InitializeComponent();
+            DataTable dataTable =  DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Gender.Items.Add(row.ItemArray[1]);
+            }
+            
         }
 
         private void Phone_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -64,7 +72,7 @@ namespace Barber.Windows
             if (!Regex.Match(Email.Text, @"^[A-Z a-z . _ 0-9]+[@]\w+[.]\w+$").Success) return false;
             if (!Regex.Match(Name.Text, @"^[A-Z a-z А-Я а-я]+$").Success) return false;
             if (!Regex.Match(Surname.Text, @"^[A-Z a-z А-Я а-я]+$").Success) return false;
-            if (!Regex.Match(Gender.Text, @"^\d+$").Success) return false;
+            //if (!Regex.Match(Gender.Text, @"^\d+$").Success) return false;
             return true;
         }
 
@@ -75,7 +83,7 @@ namespace Barber.Windows
             {
                 DataBaseConnector.NonQueryCommand(
                     $"INSERT Clients(name, surname, phone, email, genderID) " +
-                    $"VALUES ((N'{Name.Text}'), (N'{Surname.Text}'), (N'{Phone.Text}'), (N'{Email.Text}'), (N'{Gender.Text}'))");
+                    $"VALUES ((N'{Name.Text}'), (N'{Surname.Text}'), (N'{Phone.Text}'), (N'{Email.Text}'), (N'{Gender.SelectedIndex}'))");
                 MessageBox.Show("Client added successfully", "Success", MessageBoxButton.OK);
                 Close();
             }
@@ -83,6 +91,12 @@ namespace Barber.Windows
             {
                 MessageBox.Show("Check spelling", "ERROR", MessageBoxButton.OK);
             }
+        }
+
+        private void Gender_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            
         }
     }
 }
