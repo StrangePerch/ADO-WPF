@@ -1,0 +1,40 @@
+﻿<Window x:Class="Barber.Windows.ClientsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Barber.Windows"
+        mc:Ignorable="d"
+        Title="ClientsWindow" Height="450" Width="800" Loaded="ClientsWindow_OnLoadedWindow_OnLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="10"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Row="3" Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Name="SaveButton" Content="Save" Grid.Column="1" Click ="SaveButton_OnClick"></Button>
+            <Button Name="CloseButton" Content="Close" Grid.Column="3" Click="CloseButton_OnClick"></Button>
+
+        </Grid>
+
+        <DataGrid Name="ClientsGrid" Grid.Column="1" Grid.Row="1"></DataGrid>
+    </Grid>
+</Window>

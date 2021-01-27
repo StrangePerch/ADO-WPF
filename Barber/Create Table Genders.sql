@@ -1,0 +1,8 @@
+﻿DROP TABLE Genders
+
+CREATE TABLE Genders
+(
+	[id] INT PRIMARY KEY IDENTITY NOT NULL,
+	[name] NVARCHAR(64) NOT NULL,
+	[description] NVARCHAR(max) NOT NULL
+)
