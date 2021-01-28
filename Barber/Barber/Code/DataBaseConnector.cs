@@ -83,8 +83,16 @@ namespace Barber
 
         public static void NonQueryCommand(string str_command)
         {
-            SqlCommand command = new SqlCommand(str_command, _connection);
-            command.ExecuteNonQuery();
+            try
+            {
+                SqlCommand command = new SqlCommand(str_command, _connection);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error while saving", MessageBoxButton.OK);
+                throw;
+            }
         }
 
         public static int Count()

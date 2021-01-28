@@ -99,6 +99,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Code\TextBoxCheck.cs" />
     <Compile Include="Windows\AddNewClientWindow.xaml.cs">
       <DependentUpon>AddNewClientWindow.xaml</DependentUpon>
     </Compile>

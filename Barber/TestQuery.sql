@@ -1,1 +1,1 @@
-﻿SELECT id, name FROM Genders
+﻿

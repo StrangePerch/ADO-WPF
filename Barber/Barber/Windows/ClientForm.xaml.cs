@@ -28,6 +28,13 @@ namespace Barber.Windows
         public ClientForm()
         {
             InitializeComponent();
+
+            DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Gender.Items.Add(row.ItemArray[1]);
+            }
         }
 
         private void NextButton_OnClick(object sender, RoutedEventArgs e)
@@ -59,12 +66,12 @@ namespace Barber.Windows
             Surname.Text = Clients[index].Surname;
             Email.Text = Clients[index].Email;
             Phone.Text = Clients[index].Phone;
-            Gender.Text = Genders[index];
+            Gender.SelectedIndex = Clients[index].GenderId;
 
             PrevButton.IsEnabled = index != 0;
             NextButton.IsEnabled = index != Clients.Count - 1;
 
-            (Gender.ToolTip as ToolTip).Content = Clients[index].GenderDescription;
+            ((ToolTip) Gender.ToolTip).Content = Clients[index].GenderDescription;
         }
 
         private void ClientForm_OnLoaded(object sender, RoutedEventArgs e)
@@ -107,6 +114,61 @@ namespace Barber.Windows
             }
 
             ShowClient();
+        }
+
+        private void Gender_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private bool CheckAll()
+        {
+            if (!TextCheck.CheckName(Name.Text)) return false;
+            if (!TextCheck.CheckName(Surname.Text)) return false;
+            if (!TextCheck.CheckPhone(Phone.Text)) return false;
+            if (!TextCheck.CheckEmail(Email.Text)) return false;
+            return true;
+        }
+
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            
+            if (CheckAll())
+            {
+                Clients[index].Name = Name.Text;
+                Clients[index].Surname = Surname.Text;
+                Clients[index].Email = Email.Text;
+                Clients[index].Phone = Phone.Text;
+                Clients[index].GenderId = Gender.SelectedIndex;
+                
+                Client temp = Clients[index];
+                DataBaseConnector.NonQueryCommand(
+                    $"UPDATE Clients SET name = '{temp.Name}', surname = '{temp.Surname}', phone = '{temp.Phone}', email = '{temp.Email}', genderID = '{temp.GenderId}' WHERE id = '{temp.Id}'");
+            }
+            else
+            {
+                MessageBox.Show("Check spelling", "ERROR", MessageBoxButton.OK);
+            }
+        }
+
+        private void Name_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextCheck.CheckNameBox(sender as TextBox);
+        }
+
+        private void Surname_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextCheck.CheckNameBox(sender as TextBox);
+        }
+
+        private void Phone_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextCheck.CheckPhoneBox(sender as TextBox);
+        }
+
+        private void Email_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextCheck.CheckEmailBox(sender as TextBox);
         }
     }
 

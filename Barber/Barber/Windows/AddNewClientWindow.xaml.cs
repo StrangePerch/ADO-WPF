@@ -21,44 +21,31 @@ namespace Barber.Windows
     /// </summary>
     public partial class AddNewClient : Window
     {
+        
         public AddNewClient()
         {
             InitializeComponent();
-            DataTable dataTable =  DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
 
+            DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
             foreach (DataRow row in dataTable.Rows)
             {
-                Gender.Items.Add(row.ItemArray[1]);
+                Gender.Items.Add(row.ItemArray[1].ToString());
             }
-            
         }
 
         private void Phone_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox box = sender as TextBox;
-            Match match = Regex.Match(box.Text, @"^[+](\d+[-])+\d+$");
-            box.Foreground = match.Success ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.Red);
+            TextCheck.CheckPhoneBox(sender as TextBox);
         }
 
         private void Name_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox box = sender as TextBox;
-            Match match = Regex.Match(box.Text, @"^[A-Z a-z А-Я а-я]+$");
-            box.Foreground = match.Success ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.Red);
+            TextCheck.CheckNameBox(sender as TextBox);
         }
 
         private void Email_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox box = sender as TextBox;
-            Match match = Regex.Match(box.Text, @"^[A-Z a-z . _ 0-9]+[@]\w+[.]\w+$");
-            box.Foreground = match.Success ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.Red);
-        }
-
-        private void Gender_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox box = sender as TextBox;
-            Match match = Regex.Match(box.Text, @"^\d+$");
-            box.Foreground = match.Success ? new SolidColorBrush(Colors.Black) : new SolidColorBrush(Colors.Red);
+            TextCheck.CheckEmailBox(sender as TextBox);
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
@@ -85,7 +72,11 @@ namespace Barber.Windows
                     $"INSERT Clients(name, surname, phone, email, genderID) " +
                     $"VALUES ((N'{Name.Text}'), (N'{Surname.Text}'), (N'{Phone.Text}'), (N'{Email.Text}'), (N'{Gender.SelectedIndex}'))");
                 MessageBox.Show("Client added successfully", "Success", MessageBoxButton.OK);
-                Close();
+                Name.Text = "";
+                Surname.Text = "";
+                Phone.Text = "";
+                Email.Text = "";
+                Gender.SelectedIndex = 0;
             }
             else
             {
