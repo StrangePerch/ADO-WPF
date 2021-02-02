@@ -7,24 +7,15 @@ namespace Barber
 {
     public class BarberShop : DataContext
     {
-        public Table<LinqClient> Clients; 
-        
+        public Table<LinqClient> Clients;
+        public Table<LinqGender> Genders;
+
         public BarberShop(string fileOrServerOrConnection) : base(fileOrServerOrConnection)
         {
             Clients = GetTable<LinqClient>();
+            Genders = GetTable<LinqGender>();
         }
 
-        public BarberShop(string fileOrServerOrConnection, MappingSource mapping) : base(fileOrServerOrConnection, mapping)
-        {
-        }
-
-        public BarberShop(IDbConnection connection) : base(connection)
-        {
-        }
-
-        public BarberShop(IDbConnection connection, MappingSource mapping) : base(connection, mapping)
-        {
-        }
     }
 
     [Table(Name = "Clients")]
@@ -52,6 +43,20 @@ namespace Barber
 
         //[Column(Name = "genderDescription")]
         //public string GenderDescription { get; set; }
+    }
+
+
+    [Table(Name = "Genders")]
+    public class LinqGender
+    {
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id { get; set; }
+
+        [Column(Name = "name")]
+        public string Name { get; set; }
+
+        [Column(Name = "description")]
+        public string Description { get; set; }
     }
 
 }

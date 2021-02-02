@@ -30,17 +30,39 @@ namespace Barber.Windows
         {
             barberShop = DataBaseConnector.GetBarberShop();
 
-            var query
+            var queryClients
                 = from client in barberShop.Clients
                 select client;
 
+            var queryGenders = from gender in barberShop.Genders
+                select gender;
+
+            var clientsAmount = queryClients.Count();
+            var gendersAmount = queryGenders.Count();
+
+            MessageBox.Show($"Amount of Clients: {clientsAmount}\n" +
+                                       $"Amount of Genders: {gendersAmount}", "Amount");
+
             String str = "";
-            foreach (var c in query)
+            foreach (var c in queryClients)
             {
                 str += c.FullName + " " + c.Email + " " + c.Phone + "\n";
             }
 
-            MessageBox.Show(str, "Message");
+            MessageBox.Show(str, "Clients");
+
+
+            str = "";
+            foreach (var g in queryGenders)
+            {
+                if(g.Description.Length < 100)
+                    str += g.Name + " - " + g.Description + "\n";
+                else
+                    str += g.Name + " - " + g.Description.Substring(0, 100) + "..." + "\n";
+
+            }
+
+            MessageBox.Show(str, "Genders");
         }
     }
 }
