@@ -33,6 +33,7 @@
         <Button Name="ClientsButton" Grid.Column="1" Grid.Row="3" Content="Clients" Click ="ClientsButton_OnClick"/>
         <Button Name="AddClientButton" Grid.Column="3" Grid.Row="3" Content="AddClient" Click ="AddClientButton_OnClick"/>
         <Button Name="ShowClient" Grid.Column="5" Grid.Row="1" Content="Show Client" Click ="ShowClient_OnClick"/>
+        <Button Name="Journal" Grid.Column="5" Grid.Row="3" Content="Journal" Click ="Journal_OnClick"/>
 
     </Grid>
 </Window>

@@ -143,7 +143,9 @@ namespace Barber.Windows
                 
                 Client temp = Clients[index];
                 DataBaseConnector.NonQueryCommand(
-                    $"UPDATE Clients SET name = '{temp.Name}', surname = '{temp.Surname}', phone = '{temp.Phone}', email = '{temp.Email}', genderID = '{temp.GenderId}' WHERE id = '{temp.Id}'");
+                    $"UPDATE Clients SET name = N'{temp.Name}', surname = N'{temp.Surname}', phone = '{temp.Phone}', email = '{temp.Email}', genderID = '{temp.GenderId}' WHERE id = '{temp.Id}'");
+                MessageBox.Show("Saved successfully", "Saved", MessageBoxButton.OK);
+
             }
             else
             {
@@ -170,16 +172,5 @@ namespace Barber.Windows
         {
             TextCheck.CheckEmailBox(sender as TextBox);
         }
-    }
-
-    public class Client  // класс ORM - отображение (mapping) таблицы Clients
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public int GenderId { get; set; }
-        public string GenderDescription { get; set; }
     }
 }

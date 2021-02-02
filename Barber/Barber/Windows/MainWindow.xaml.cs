@@ -65,5 +65,11 @@ namespace Barber
             ClientForm window = new ClientForm();
             window.ShowDialog();
         }
+
+        private void Journal_OnClick(object sender, RoutedEventArgs e)
+        {
+            JournalWindow window = new JournalWindow();
+            window.ShowDialog();
+        }
     }
 }

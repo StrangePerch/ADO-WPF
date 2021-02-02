@@ -13,6 +13,7 @@ namespace Barber
         private static SqlDataAdapter adapter;
         private static DataTable dataTable;
         private static SqlCommandBuilder builder;
+        private static BarberShop barberShop;
         public static void Connect()
         {
             try
@@ -41,6 +42,12 @@ namespace Barber
                 MessageBox.Show(e.Message, "Closing Error", MessageBoxButton.OK);
                 throw;
             }
+        }
+
+        public static BarberShop GetBarberShop()
+        {
+            return barberShop ?? (barberShop = new BarberShop(System.Configuration.ConfigurationManager
+                .ConnectionStrings["DataBase"].ConnectionString));
         }
 
         public static void DataGridConnect(DataGrid grid, string str_command)
