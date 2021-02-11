@@ -1,0 +1,36 @@
+﻿<Window x:Class="Barber.Windows.Reviews.ReviewsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Barber.Windows.Reviews"
+        mc:Ignorable="d"
+        Title="ReviewsWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <local:ReviewsVM/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="30"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="1" Grid.Column="1" FontSize="30" SelectedItem="{Binding SelectedBarber}" ItemsSource="{Binding Barbers}"></ComboBox>
+
+        <ListBox Grid.Row="2" FontSize="30" Grid.Column="1" ItemsSource="{Binding Reviews}"></ListBox>
+        
+        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="30" Text="{Binding Info}"></TextBlock>
+    </Grid>
+</Window>

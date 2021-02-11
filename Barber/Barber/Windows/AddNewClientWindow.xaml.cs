@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Linq;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,15 +22,19 @@ namespace Barber.Windows
     /// </summary>
     public partial class AddNewClient : Window
     {
+        private Table<LinqGender> Genders;
         
         public AddNewClient()
         {
             InitializeComponent();
 
-            DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
-            foreach (DataRow row in dataTable.Rows)
+            //DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name, description FROM Genders");
+
+            Genders = DataBaseConnector.GetBarberShop().Genders;
+            
+            foreach (LinqGender gender in Genders)
             {
-                Gender.Items.Add(row.ItemArray[1].ToString());
+                Gender.Items.Add(gender);
             }
         }
 
@@ -89,8 +94,7 @@ namespace Barber.Windows
 
         private void Gender_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            
+            ((ToolTip)Gender.ToolTip).Content = (Gender.SelectedItem as LinqGender).Description;
         }
 
         private void ResetGender_OnClick(object sender, RoutedEventArgs e)

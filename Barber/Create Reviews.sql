@@ -1,0 +1,9 @@
+﻿DROP TABLE Reviews
+
+CREATE TABLE Reviews
+(
+	id INT PRIMARY KEY IDENTITY,
+	journal_id INT NOT NULL,
+	[text] NVARCHAR(max) NULL,
+	rating INT CHECK(rating BETWEEN 1 AND 5) NULL
+)

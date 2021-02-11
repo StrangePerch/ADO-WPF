@@ -72,6 +72,15 @@
                         <ToolTip>
                         </ToolTip>
                     </ComboBox.ToolTip>
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <TextBlock Text="{Binding Description}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
                 </ComboBox>
                 <Button Grid.Column="1" FontSize="40" Content="X" Name="ResetGender" Click="ResetGender_OnClick"></Button>
             </Grid>

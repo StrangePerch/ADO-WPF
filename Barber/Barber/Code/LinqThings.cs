@@ -12,6 +12,8 @@ namespace Barber
         public Table<LinqGender> Genders;
         public Table<LinqJournal> Journal;
         public Table<LinqBarber> Barbers;
+        public Table<LinqReview> Reviews;
+
 
         public BarberShop(string fileOrServerOrConnection) : base(fileOrServerOrConnection)
         {
@@ -19,6 +21,7 @@ namespace Barber
             Genders = GetTable<LinqGender>();
             Journal = GetTable<LinqJournal>();
             Barbers = GetTable<LinqBarber>();
+            Reviews = GetTable<LinqReview>();
         }
 
     }
@@ -67,8 +70,11 @@ namespace Barber
 
         [Column(Name = "description")]
         public string Description { get; set; }
-        
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     [Table(Name = "Journal")]
@@ -122,5 +128,28 @@ namespace Barber
             return FullName;
         }
     }
+
+    [Table(Name = "Reviews")]
+    public class LinqReview
+    {
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, Name = "id")]
+        public int Id { get; set; }
+
+        [Column(Name = "journal_id")]
+        public int JournalId { get; set; }
+
+        [Column(Name = "text")]
+        public string Text { get; set; }
+
+        [Column(Name = "rating")] 
+        public int Rating { get; set; }
+
+        public override string ToString()
+        {
+            return $"{JournalId}# Rating - {Rating}";
+        }
+    }
+
+
 
 }

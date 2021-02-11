@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Barber.Windows;
+using Barber.Windows.Reviews;
 
 namespace Barber
 {
@@ -69,6 +70,12 @@ namespace Barber
         private void Journal_OnClick(object sender, RoutedEventArgs e)
         {
             JournalWindow window = new JournalWindow();
+            window.ShowDialog();
+        }
+
+        private void Reviews_OnClick(object sender, RoutedEventArgs e)
+        {
+            ReviewsWindow window = new ReviewsWindow();
             window.ShowDialog();
         }
     }

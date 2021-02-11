@@ -114,12 +114,12 @@ namespace Barber.Windows
             return true;
         }
 
+
         public ObservableCollection<Journal_Item> JournalList => _model.JournalList;
 
         public List<LinqClient> Clients => _model.Clients;
 
         public List<LinqBarber> Barbers => _model.Barbers;
-
         
 
         private readonly JournalM _model = new JournalM();
