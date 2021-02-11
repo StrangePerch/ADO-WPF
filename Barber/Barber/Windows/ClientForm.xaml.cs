@@ -25,9 +25,18 @@ namespace Barber.Windows
         private List<string> Genders;
         private int index = 0;
 
+        public ICommand NextCommand { get; set; }
+        public ICommand PrevCommand { get; set; }
+        public ICommand SaveCommand { get; set; }
+
+        public bool Changed { get; set; }
+
+        
         public ClientForm()
         {
             InitializeComponent();
+
+            DataContext = this;
 
             DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
 
@@ -35,9 +44,32 @@ namespace Barber.Windows
             {
                 Gender.Items.Add(row.ItemArray[1]);
             }
+
+            NextCommand = new Command(Next, CanNext);
+            PrevCommand = new Command(Prev, CanPrev);
+            SaveCommand = new Command(Save, IsChanged);
         }
 
-        private void NextButton_OnClick(object sender, RoutedEventArgs e)
+        private bool IsChanged(object sender)
+        {
+            return Changed && CheckAll();
+        }
+
+        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Prev(object sender)
+        {
+            if (index > 0)
+            {
+                index--;
+                ShowClient();
+            }
+        }
+
+        private void Next(object sender)
         {
             if (index < Clients.Count - 1)
             {
@@ -46,18 +78,15 @@ namespace Barber.Windows
             }
         }
 
-        private void CloseButton_OnClick(object sender, RoutedEventArgs e)
+        private bool CanNext(object sender)
         {
-            Close();
+            if (Clients == null) return false;
+            return index != Clients.Count - 1;
         }
 
-        private void PrevButton_OnClick(object sender, RoutedEventArgs e)
+        private bool CanPrev(object sender)
         {
-            if (index > 0)
-            {
-                index--;
-                ShowClient();
-            }
+            return index != 0;
         }
 
         private void ShowClient()
@@ -72,6 +101,7 @@ namespace Barber.Windows
             NextButton.IsEnabled = index != Clients.Count - 1;
 
             ((ToolTip) Gender.ToolTip).Content = Clients[index].GenderDescription;
+            Changed = false;
         }
 
         private void ClientForm_OnLoaded(object sender, RoutedEventArgs e)
@@ -81,7 +111,7 @@ namespace Barber.Windows
             try
             {
                 SqlDataReader reader = DataBaseConnector.GetReader(
-                    "SELECT C.id, C.name, surname, email, phone, genderId, G.description FROM Clients C JOIN Genders G ON C.GenderID = G.Id");
+                    "SELECT C.id, C.name, surname, email, phone, COALESCE(genderId,'-'), COALESCE(G.description, '-') FROM Clients C LEFT JOIN Genders G ON C.GenderID = G.Id");
                 while (reader.Read())
                 {
                     Clients.Add(
@@ -104,7 +134,6 @@ namespace Barber.Windows
                 MessageBox.Show(ex.Message);
                 Close();
             }
-            // Отображаем на форме данные о размере коллекции Clients
 
             DataTable dataTable = DataBaseConnector.GetDataTable("SELECT id, name FROM Genders");
             Genders = new List<string>();
@@ -116,11 +145,6 @@ namespace Barber.Windows
             ShowClient();
         }
 
-        private void Gender_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
-
         private bool CheckAll()
         {
             if (!TextCheck.CheckName(Name.Text)) return false;
@@ -130,47 +154,54 @@ namespace Barber.Windows
             return true;
         }
 
-        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
+        private void Save(object sender)
         {
-            
-            if (CheckAll())
-            {
-                Clients[index].Name = Name.Text;
-                Clients[index].Surname = Surname.Text;
-                Clients[index].Email = Email.Text;
-                Clients[index].Phone = Phone.Text;
-                Clients[index].GenderId = Gender.SelectedIndex;
-                
-                Client temp = Clients[index];
-                DataBaseConnector.NonQueryCommand(
-                    $"UPDATE Clients SET name = N'{temp.Name}', surname = N'{temp.Surname}', phone = '{temp.Phone}', email = '{temp.Email}', genderID = '{temp.GenderId}' WHERE id = '{temp.Id}'");
-                MessageBox.Show("Saved successfully", "Saved", MessageBoxButton.OK);
+            Clients[index].Name = Name.Text;
+            Clients[index].Surname = Surname.Text;
+            Clients[index].Email = Email.Text;
+            Clients[index].Phone = Phone.Text;
+            Clients[index].GenderId = Gender.SelectedIndex;
+             
+            Client temp = Clients[index];
+            DataBaseConnector.NonQueryCommand(
+                $"UPDATE Clients SET name = N'{temp.Name}', surname = N'{temp.Surname}', phone = '{temp.Phone}', email = '{temp.Email}', genderID = '{temp.GenderId}' WHERE id = '{temp.Id}'");
+            MessageBox.Show("Saved successfully", "Saved", MessageBoxButton.OK);
 
-            }
-            else
-            {
-                MessageBox.Show("Check spelling", "ERROR", MessageBoxButton.OK);
-            }
+            Changed = false;
         }
 
         private void Name_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckNameBox(sender as TextBox);
+            Changed = true;
         }
 
         private void Surname_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckNameBox(sender as TextBox);
+            Changed = true;
         }
 
         private void Phone_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckPhoneBox(sender as TextBox);
+            Changed = true;
         }
 
         private void Email_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckEmailBox(sender as TextBox);
+            Changed = true;
+        }
+
+        private void ResetGender_OnClick(object sender, RoutedEventArgs e)
+        {
+            Gender.SelectedIndex = -1;
+        }
+
+        private void Gender_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Changed = true;
         }
     }
 }

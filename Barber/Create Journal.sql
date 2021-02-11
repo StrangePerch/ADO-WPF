@@ -1,0 +1,9 @@
+﻿DROP TABLE Journal
+
+CREATE TABLE Journal
+(
+	id INT PRIMARY KEY IDENTITY,
+	id_client INT NOT NULL,
+	id_barber INT NOT NULL,
+	moment DATETIME NOT NULL,
+)

@@ -1,0 +1,58 @@
+﻿<Window x:Class="Barber.Windows.JournalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Barber.Windows"
+        mc:Ignorable="d"
+        Title="JournalWindow" Height="450" Width="800" Loaded="JournalWindow_OnLoaded">
+
+    <Window.DataContext>
+        <local:JournalVM/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+
+
+        <ListBox SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding JournalList, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Command="{Binding DeleteCommand}"></MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+
+        <Grid Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="140"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="1">
+                <TextBlock FontSize="30" Text="Client"/>
+                <TextBlock FontSize="30" Text="Barber"/>
+                <TextBlock FontSize="30" Text="Moment"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.Column="1">
+                <ComboBox FontSize="30" Name="ClientBox" ItemsSource="{Binding Clients}" SelectedItem = "{Binding Client, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox FontSize="30" Name="BarberBox" ItemsSource="{Binding Barbers}" SelectedItem = "{Binding Barber, UpdateSourceTrigger=PropertyChanged}"/>
+                <DatePicker Name="MomentPicker" SelectedDate = "{Binding Moment, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+            </StackPanel>
+
+            <Button Grid.Column="0" Grid.Row="2" Content="Add" Command="{Binding AddCommand}"></Button>
+            <Button Grid.Column="1" Grid.Row="2" Content="Reset" Command="{Binding ResetCommand}"></Button>
+        </Grid>
+    </Grid>
+</Window>

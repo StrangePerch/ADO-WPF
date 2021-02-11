@@ -36,16 +36,19 @@ namespace Barber.Windows
         private void Phone_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckPhoneBox(sender as TextBox);
+            AddButton.IsEnabled = AllIsGood();
         }
 
         private void Name_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckNameBox(sender as TextBox);
+            AddButton.IsEnabled = AllIsGood();
         }
 
         private void Email_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             TextCheck.CheckEmailBox(sender as TextBox);
+            AddButton.IsEnabled = AllIsGood();
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
@@ -88,6 +91,11 @@ namespace Barber.Windows
         {
             
             
+        }
+
+        private void ResetGender_OnClick(object sender, RoutedEventArgs e)
+        {
+            Gender.SelectedIndex = -1;
         }
     }
 }

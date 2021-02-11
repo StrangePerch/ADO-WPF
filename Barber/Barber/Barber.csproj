@@ -92,7 +92,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\JournalWindow.xaml">
+    <Page Include="Windows\Journal\JournalWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -105,6 +105,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Code\Client.cs" />
+    <Compile Include="Code\Commands.cs" />
     <Compile Include="Code\LinqThings.cs" />
     <Compile Include="Code\TextBoxCheck.cs" />
     <Compile Include="Windows\AddNewClientWindow.xaml.cs">
@@ -123,7 +124,10 @@
     <Compile Include="Windows\GendersWindow.xaml.cs">
       <DependentUpon>GendersWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\JournalWindow.xaml.cs">
+    <Compile Include="Windows\Journal\Journal Item.cs" />
+    <Compile Include="Windows\Journal\JournalM.cs" />
+    <Compile Include="Windows\Journal\JournalVM.cs" />
+    <Compile Include="Windows\Journal\JournalWindow.xaml.cs">
       <DependentUpon>JournalWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
