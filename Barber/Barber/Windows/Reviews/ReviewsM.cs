@@ -20,11 +20,13 @@ namespace Barber.Windows.Reviews
 
         public ReviewsM()
         {
-            _reviews = new ObservableCollection<ReviewItem>();
+            Reviews = new ObservableCollection<ReviewItem>();
             barberShop = DataBaseConnector.GetBarberShop();
             LoadList();
+            Info = "None";
+
         }
-        
+
         List<LinqBarber> _barberList;
         public List<LinqBarber> BarberList
         {
@@ -86,11 +88,16 @@ namespace Barber.Windows.Reviews
                 where J.id_barber == barber_id
                 select new { R.Text, R.Id, R.Rating, C.FullName };
 
+            if (!table.Any())
+            {
+                Info = "None";
+                return;
+            }
+
             _reviews.Clear();
 
-            if (!table.Any()) return;
 
-            int total = 0;
+            decimal total = 0;
             
             foreach (var obj in table)
             {
@@ -106,8 +113,7 @@ namespace Barber.Windows.Reviews
                 total += obj.Rating;
             }
 
-            Info = $"Avg: {total / Reviews.Count}";
-
+            Info = $"Avg: {Math.Round(total / Reviews.Count)}";
         }
     }
 }

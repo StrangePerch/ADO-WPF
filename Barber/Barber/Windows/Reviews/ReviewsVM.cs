@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Barber.Windows.Reviews
@@ -29,12 +30,16 @@ namespace Barber.Windows.Reviews
             set
             {
                 _selectedBarber = value;
-                _model.GetReviews(SelectedBarber.Id);
+                Refresh();
                 OnPropertyChanged("SelectedBarber");
             }
         }
 
-        public ICommand RefreshCommand;
+        void Refresh()
+        {
+            _model.GetReviews(SelectedBarber.Id);
+            OnPropertyChanged("Info");
+        }
 
         public List<LinqBarber> Barbers => _model.BarberList;
 

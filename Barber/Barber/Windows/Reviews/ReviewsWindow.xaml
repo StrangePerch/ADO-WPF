@@ -29,8 +29,8 @@
 
         <ComboBox Grid.Row="1" Grid.Column="1" FontSize="30" SelectedItem="{Binding SelectedBarber}" ItemsSource="{Binding Barbers}"></ComboBox>
 
-        <ListBox Grid.Row="2" FontSize="30" Grid.Column="1" ItemsSource="{Binding Reviews}"></ListBox>
+        <ListBox Grid.Row="2" FontSize="20" Grid.Column="1" ItemsSource="{Binding Reviews}"></ListBox>
         
-        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="30" Text="{Binding Info}"></TextBlock>
+        <Label Grid.Row="3" Grid.Column="1" FontSize="30" Content="{Binding Info}"></Label>
     </Grid>
 </Window>
