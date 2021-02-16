@@ -87,7 +87,8 @@ namespace Barber.Windows
         {
             if (SelectedItem == null)
                 return;
-            _model.DeleteJournal(SelectedItem);
+            if(MessageBox.Show($"Are you sure want to delete ({SelectedItem.Client_FullName} - {SelectedItem.Barber_FullName})?", "Waring", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                _model.DeleteJournal(SelectedItem);
         }
 
         public void Add(object sender)
